@@ -4,7 +4,7 @@
   "description": "cloning uber",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql"
   },
   "repository": {
     "type": "git",
@@ -17,13 +17,20 @@
   },
   "homepage": "https://github.com/DrinkACookie/Clone-coding-Uber#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/helmet": "^0.0.46",
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/morgan": "^1.9.0",
     "@types/node": "^13.13.5",
     "nodemon": "^2.0.3",
     "ts-node": "^8.10.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.8.3"
   },
-  "scripts": {
-    "dev": "cd src && nodemon --exec ts-node index.ts -e ts,graphql"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "graphql-yoga": "^1.18.3",
+    "helmet": "^3.22.0",
+    "morgan": "^1.10.0"
   }
 }
