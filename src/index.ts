@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import { Options } from "graphql-yoga";
 import app from "./app";
 import connectionOptions from "./ormConfig";
