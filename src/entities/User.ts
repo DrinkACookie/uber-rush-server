@@ -69,6 +69,11 @@ class User extends BaseEntity {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
+  //차후 resolver에서 사용할 함수.
+  public comparePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
+
   //save나 update 하기 전 실행되는 함수들.
   @BeforeInsert()
   @BeforeUpdate()
