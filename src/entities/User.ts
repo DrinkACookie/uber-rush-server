@@ -9,16 +9,21 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
 } from "typeorm";
 
-const BCRYPT_ROUNDS = 10;
+import Chat from "./Chat";
+import Message from "./Message";
 
-@Entity()
+const BCRYPT_ROUNDS = 10; //암호화를 10번 하겠다,
+
+@Entity() //User라는 Class를 Entity decorator 안에 넣을 수 있도록 해 주는 것.
 class User extends BaseEntity {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn() id: number; //PrimaryKey 설정.
 
   @Column({ type: "text", unique: true })
-  @IsEmail()
+  @IsEmail() //class-validator 를 이용하여 유효성 검사
   email: string;
 
   @Column({ type: "boolean", default: false })
@@ -62,9 +67,16 @@ class User extends BaseEntity {
   @Column({ type: "double precision", default: 0 })
   lastOrientation: number;
 
-  @CreateDateColumn() createdAt: string;
+  @ManyToOne((type) => Chat, (chat) => chat.participants)
+  chat: Chat;
 
-  @UpdateDateColumn() updatedAt: string;
+  @OneToMany((type) => Message, (message) => message.user)
+  messages: Message[];
+
+  //CreateDateColumn, UpdateDateColumn를 : TypeORM이 만들어 놓은 Column
+  @CreateDateColumn() createdAt: string; //CreateDateColumn을 사용하여 만든 날을 저장
+
+  @UpdateDateColumn() updatedAt: string; // UpdateDateColumn를 사용하여 수정된 날 저장
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
