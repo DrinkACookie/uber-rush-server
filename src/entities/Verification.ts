@@ -30,9 +30,9 @@ class Verification extends BaseEntity {
 
   @BeforeInsert()
   createKey(): void {
-    if( this.target === "PHONE") {
-      this.key = (Math.random()*100000).toString();
-    } else if (this.target ==="EMAIL" ){
+    if (this.target === "PHONE") {
+      this.key = (Math.random() * 100000).toString();
+    } else if (this.target === "EMAIL") {
       this.key = Math.random().toString(36).substr(2);
     }
   }
