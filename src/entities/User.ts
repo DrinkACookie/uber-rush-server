@@ -24,9 +24,9 @@ const BCRYPT_ROUNDS = 10; //암호화를 10번 하겠다,
 class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number; //PrimaryKey 설정.
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text", nullable: true })
   @IsEmail() //class-validator 를 이용하여 유효성 검사
-  email: string;
+  email: string | null;
 
   @Column({ type: "boolean", default: false })
   verifiedEmail: boolean;
