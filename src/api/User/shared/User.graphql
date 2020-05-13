@@ -5,6 +5,7 @@ type User {
   firstName: String!
   lastName: String!
   age: Int
+  fbId: String
   password: String
   phoneNumber: String
   verifiedPhonenNumber: Boolean!
@@ -20,6 +21,9 @@ type User {
   lastOrientation: Float
   chat: Chat
   messages: [Message]
+  verifications: [Verification]
+  ridesAsPassenger: [Ride]
+  ridesAsDriver: [Ride]
 }
 
 type Query {

@@ -1,14 +1,15 @@
 import {
   BaseEntity,
-  Column,
+  BeforeInsert,
   CreateDateColumn,
+  Column,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  BeforeInsert,
 } from "typeorm";
 import { verificationTarget } from "../types/types";
-
+import User from "./User";
 @Entity()
 class Verification extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
@@ -24,6 +25,9 @@ class Verification extends BaseEntity {
 
   @Column({ type: "boolean", default: false })
   used: boolean;
+
+  @ManyToOne((type) => User, (user) => user.verifications)
+  user: User;
 
   @CreateDateColumn() createdAt: string;
   @UpdateDateColumn() updatedAt: string;
