@@ -11,7 +11,7 @@ const resolvers: Resolvers = {
       _,
       args: EmailSignInMutationArgs
     ): Promise<EmailSignInResponse> => {
-      const { email } = args;
+      const { email, password } = args;
       try {
         const user = await User.findOne({ email });
         if (!user) {
@@ -20,6 +20,20 @@ const resolvers: Resolvers = {
             error: "No User found with that email",
             token: null,
           };
+        }
+        const checkPassword = user.comparePassword(password);
+        if (checkPassword) {
+          return {
+            ok: true,
+            error: null,
+            token: "Comming soon",
+          }
+        } else {
+          return {
+            ok: false,
+            error: "wrong password",
+            token: null
+          }
         }
       } catch (error) {
         return {
