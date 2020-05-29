@@ -1,10 +1,13 @@
-import { Resolvers } from "../../../types/resolver";
-import { StartPhoneVerificationMutationArgs, StartPhoneVerificationResponse } from "../../../types/graph";
 import Verification from "../../../entities/Verification";
+import { StartPhoneVerificationMutationArgs, StartPhoneVerificationResponse } from "../../../types/graph";
+import { Resolvers } from "../../../types/resolver";
+import { sendVerificationSMS } from "../../../utils/sendSMS";
 
-const resolver: Resolvers = {
+const resolvers: Resolvers = {
         Mutation: {
-                StartPhoneVerifiction: async (_, args: StartPhoneVerificationMutationArgs): Promise<StartPhoneVerificationResponse> => {
+                StartPhoneVerification: async (_, args: StartPhoneVerificationMutationArgs): Promise<StartPhoneVerificationResponse> => {
+                        console.log(args);
+
                         const { phoneNumber } = args;
                         try {
                                 const existingVerification = await Verification.findOne({ payload: phoneNumber });
@@ -15,7 +18,12 @@ const resolver: Resolvers = {
                                         payload: phoneNumber,
                                         target: "PHONE"
                                 }).save();
-                                // TO DO : send message 
+                                console.log(newVerification);
+                                await sendVerificationSMS(newVerification.payload, newVerification.key);
+                                return {
+                                        ok: true,
+                                        error: null
+                                };
                         } catch (error) {
                                 return {
                                         ok: false,
@@ -25,3 +33,5 @@ const resolver: Resolvers = {
                 }
         }
 };
+
+export default resolvers;
