@@ -11,6 +11,11 @@ class App {
   constructor() {
     this.app = new GraphQLServer({
       schema,
+      context: (req) => {
+        return {
+          req: req.request,
+        };
+      },
     });
     this.middlewares();
   }
@@ -20,11 +25,7 @@ class App {
     this.app.express.use(helmet());
     this.app.express.use(this.jwt);
   };
-  private jwt = async (
-    req,
-    res: Express.Response,
-    next: NextFunction
-  ): Promise<void> => {
+  private jwt = async (req, res, next: NextFunction): Promise<void> => {
     const token = req.get("X-JWT");
     if (token) {
       const user = await decodeJWT(token);
