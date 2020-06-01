@@ -4,6 +4,8 @@ import * as helmet from "helmet";
 import * as logger from "morgan";
 import schema from "./schema";
 import decodeJWT from "./utils/decodeJWT";
+import { NextFunction } from "express";
+
 class App {
   public app: GraphQLServer;
   constructor() {
@@ -18,15 +20,22 @@ class App {
     this.app.express.use(helmet());
     this.app.express.use(this.jwt);
   };
-  private jwt = async (req, res, next): Promise<void> => {
+  private jwt = async (
+    req,
+    res: Express.Response,
+    next: NextFunction
+  ): Promise<void> => {
     const token = req.get("X-JWT");
     if (token) {
-      const users = await decodeJWT(token);
-      console.log(users);
-
+      const user = await decodeJWT(token);
+      if (user) {
+        req.user = user;
+      } else {
+        req.user = undefined;
+      }
     }
     next();
-  }
+  };
 }
 
 export default new App().app;
