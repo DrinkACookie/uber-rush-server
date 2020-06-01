@@ -24,10 +24,7 @@ class Verification extends BaseEntity {
   key: string;
 
   @Column({ type: "boolean", default: false })
-  used: boolean;
-
-  @ManyToOne((type) => User, (user) => user.verifications)
-  user: User;
+  verified: boolean;
 
   @CreateDateColumn() createdAt: string;
   @UpdateDateColumn() updatedAt: string;
@@ -35,7 +32,7 @@ class Verification extends BaseEntity {
   @BeforeInsert()
   createKey(): void {
     if (this.target === "PHONE") {
-      this.key = (Math.random() * 100000).toString();
+      this.key = Math.floor((Math.random() * 100000)).toString();
     } else if (this.target === "EMAIL") {
       this.key = Math.random().toString(36).substr(2);
     }

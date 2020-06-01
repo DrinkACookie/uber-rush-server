@@ -24,9 +24,9 @@ const BCRYPT_ROUNDS = 10; //암호화를 10번 하겠다,
 class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number; //PrimaryKey 설정.
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text", nullable: true })
   @IsEmail() //class-validator 를 이용하여 유효성 검사
-  email: string;
+  email: string | null;
 
   @Column({ type: "boolean", default: false })
   verifiedEmail: boolean;
@@ -37,17 +37,17 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   lastName: string;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: true })
   age: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   password: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
-  verifiedPhonenNumber: boolean;
+  verifiedPhoneNumber: boolean;
 
   @Column({ type: "text" })
   profilePhoto: string;
@@ -77,9 +77,6 @@ class User extends BaseEntity {
 
   @OneToMany((type) => Message, (message) => message.user)
   messages: Message[];
-
-  @OneToMany((type) => Verification, (verification) => verification.user)
-  verifications: Verification[];
 
   @OneToMany((type) => Ride, (ride) => ride.passenger)
   ridesAsPassenger: Ride[];
