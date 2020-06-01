@@ -10,13 +10,13 @@
 - [x] Sign In with Email
 - [x] Start Phone Number Verification
 - [x] Complete Phone Number Verification
-- [ ] Sign Up with Email
+- [x] Sign Up with Email
 
+### Authentication:
+- [x] Generate JWT
+- [ ] Verifiy JWT
 
 ### Private Resolvers:
-
-- [ ] Generate JWT
-- [ ] Verifiy JWT
 - [ ] Verify Email
 - [ ] Get my Profile
 - [ ] Update my Profile
