@@ -20,7 +20,7 @@ const resolvers: Resolvers = {
           return {
             ok: true,
             error: null,
-            token
+            token,
           };
         }
       } catch (error) {
@@ -39,7 +39,7 @@ const resolvers: Resolvers = {
         return {
           ok: true,
           error: null,
-          token
+          token,
         };
       } catch (error) {
         return {
