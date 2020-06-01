@@ -3,6 +3,7 @@ import { PhoneNumber } from "twilio/lib/interfaces";
 import { CompletePhoneVerificationMutationArgs, CompletePhoneVerificationResponse } from "../../../types/graph"
 import Verification from "../../../entities/Verification";
 import User from "../../../entities/User";
+import createJWT from "../../../utils/createJWT";
 const resolvers: Resolvers = {
         Mutation: {
                 CompletePhoneVerification: async (_, args: CompletePhoneVerificationMutationArgs): Promise<CompletePhoneVerificationResponse> => {
@@ -29,12 +30,13 @@ const resolvers: Resolvers = {
                         try {
                                 const user = await User.findOne({ phoneNumber });
                                 if (user) {
+                                        const token = createJWT(user.id);
                                         user.verifiedPhoneNumber = true;
                                         user.save();
                                         return {
                                                 ok: true,
                                                 error: null,
-                                                token: "Comming soon"
+                                                token
                                         }
                                 } else {
                                         return {
