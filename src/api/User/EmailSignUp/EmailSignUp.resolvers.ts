@@ -1,17 +1,21 @@
-import { Resolvers } from "../../../types/resolver";
-import { EmailSignInMutationArgs, EmailSignUpResponse } from "../../../types/graph";
 import User from "../../../entities/User";
+import { EmailSignUpMutationArgs, EmailSignUpResponse } from "../../../types/graph";
+import { Resolvers } from "../../../types/resolver";
 import createJWT from "../../../utils/createJWT";
 
 const resolvers: Resolvers = {
         Mutation: {
-                EmailSignUp: async (_, args: EmailSignInMutationArgs): Promise<EmailSignUpResponse> => {
+                EmailSignUp: async (
+                        _,
+                        args: EmailSignUpMutationArgs
+                ): Promise<EmailSignUpResponse> => {
                         const { email } = args;
                         try {
+                                console.log(email);
                                 const existingUser = await User.findOne({ email });
                                 if (existingUser) {
                                         return {
-                                                ok: "false",
+                                                ok: false,
                                                 error: "you should log in instead",
                                                 token: null
                                         }
@@ -19,14 +23,14 @@ const resolvers: Resolvers = {
                                         const newUser = await User.create({ ...args }).save();
                                         const token = createJWT(newUser.id);
                                         return {
-                                                ok: "true",
+                                                ok: true,
                                                 error: null,
                                                 token
                                         }
                                 }
                         } catch (error) {
                                 return {
-                                        ok: "false",
+                                        ok: false,
                                         error: "error.message",
                                         token: null
                                 }
