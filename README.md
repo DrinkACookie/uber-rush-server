@@ -1,6 +1,6 @@
 # Clone-coding-Uber
- Server for the (N)Uber Clone Course on Nomad Academy. GraphQL, Typescript, NodeJS
 
+Server for the (N)Uber Clone Course on Nomad Academy. GraphQL, Typescript, NodeJS
 
 ## Resolvers
 
@@ -13,11 +13,13 @@
 - [x] Sign Up with Email
 
 ### Authentication:
+
 - [x] Generate JWT
-- [ ] Verifiy JWT
+- [x] Verifiy JWT
 
 ### Private Resolvers:
-- [ ] Verify Email
+
+- [] Verify Email
 - [ ] Get my Profile
 - [ ] Update my Profile
 - [ ] Toggle Driving Mode
@@ -42,4 +44,4 @@
 
 ## Reference
 
-- GraphQL  :  https://graphql-kr.github.io/
+- GraphQL : https://graphql-kr.github.io/
