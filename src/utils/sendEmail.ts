@@ -13,7 +13,7 @@ const sendEmail = (subject: String, html: String) => {
     html,
   };
 };
-export const emailVerification = (fullName: String, Key: String) => {
+export const sendVerificationEmail = (fullName: String, Key: String) => {
   const emailSubject = `Hello!  ${fullName}  Please verify Email !`;
   const emailBody = `Verification your email by clicking <a = "http://nuber.com/verfication/${Key}" >here</a>`;
   return sendEmail(emailSubject, emailBody);
