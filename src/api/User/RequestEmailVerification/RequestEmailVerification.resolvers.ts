@@ -9,8 +9,9 @@ const resolvers: Resolvers = {
   Mutation: {
     RequestEmailVerification: privateResolver(
       async (_, __, { req }): Promise<RequestEmailVerificationResponse> => {
+        console.log(req.user);
         const user: User = req.user;
-        if (user.email) {
+        if (user.email && !user.verifiedEmail) {
           try {
             const oldVerification = await Verification.findOne({
               payload: user.email,

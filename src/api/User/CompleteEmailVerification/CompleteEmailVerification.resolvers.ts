@@ -22,7 +22,7 @@ const resolvers: Resolvers = {
               payload: user.email,
             });
             if (verification) {
-              user.verificatedEmail = true;
+              user.verifiedEmail = true;
               user.save();
               return {
                 ok: true,
