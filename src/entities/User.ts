@@ -17,6 +17,7 @@ import Chat from "./Chat";
 import Message from "./Message";
 import Ride from "./Ride";
 import Verification from "./Verification";
+import Place from "./Place";
 
 const BCRYPT_ROUNDS = 10; //암호화를 10번 하겠다,
 
@@ -96,6 +97,8 @@ class User extends BaseEntity {
   public comparePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
   }
+  @OneToMany((type) => Place, (place) => place.user)
+  places: Place[];
 
   //save나 update 하기 전 실행되는 함수들.
   @BeforeInsert()
