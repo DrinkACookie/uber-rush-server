@@ -5,12 +5,35 @@ import {
 } from "../../../types/graph";
 import privateResolver from "../../../utils/privateResolver";
 import User from "../../../entities/User";
+import { userInfo } from "os";
 
 const resolvers: Resolvers = {
   Mutation: {
     UpdateMyProfile: privateResolver(
-      async (_, args: UpdateMyProfileMutationArgs, { req }) => {
-        const { user: User } = req.user;
+      async (
+        _,
+        args: UpdateMyProfileMutationArgs,
+        { req }
+      ): Promise<UpdateMyProfileResponse> => {
+        const user: User = req.user;
+        const notNull = {};
+        Object.keys(args).forEach((key) => {
+          if (args[key] !== null) {
+            notNull[key] = args[key];
+          }
+        });
+        try {
+          await User.update({ id: user.id }, { ...notNull });
+          return {
+            ok: true,
+            error: null,
+          };
+        } catch (error) {
+          return {
+            ok: false,
+            error: error.massage,
+          };
+        }
       }
     ),
   },
