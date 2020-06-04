@@ -34,11 +34,19 @@ const resolvers: Resolvers = {
               const emailVerification = await Verification.create({
                 payload: newUser.email,
                 target: "EMAIL",
-              });
-              await sendVerificationEmail(
-                newUser.fullName,
-                emailVerification.key
-              );
+              }).save();
+              try {
+                await sendVerificationEmail(
+                  newUser.fullName,
+                  emailVerification.key
+                );
+              } catch (error) {
+                return {
+                  ok: false,
+                  error,
+                  token: null,
+                };
+              }
             }
             const token = createJWT(newUser.id);
             return {
