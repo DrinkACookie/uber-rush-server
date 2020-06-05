@@ -15,11 +15,11 @@ const resolvers: Resolvers = {
       ): Promise<EditPlaceResponse> => {
         const user: User = req.user;
         try {
-          const place = await Place.findOne({ id: args.placeId });
+          const place = await Place.findOne({ id: args.id });
           if (place) {
             if (place.userId === user.id) {
               const notNull = cleanNullArgs(args);
-              await Place.update({ id: args.placeId }, { ...notNull });
+              await Place.update({ id: args.id }, { ...notNull });
               return {
                 ok: true,
                 error: null,
