@@ -1,7 +1,7 @@
 import Place from "../../../entities/Place";
 import User from "../../../entities/User";
 import { AddPlaceMutationArgs, AddPlaceResponse } from "../../../types/graph";
-import { Resolvers } from "../../../types/resolvers";
+import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
 
 const resolvers: Resolvers = {
