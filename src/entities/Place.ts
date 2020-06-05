@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
+  RelationId,
 } from "typeorm";
 import User from "./User";
 
@@ -28,7 +29,7 @@ class Place extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isFav: boolean;
 
-  @Column({ nullable: true })
+  @RelationId((place: Place) => place.user)
   userId: number;
 
   @ManyToOne((type) => User, (user) => user.places)
