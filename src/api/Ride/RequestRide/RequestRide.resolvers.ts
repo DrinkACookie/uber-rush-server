@@ -6,6 +6,7 @@ import {
 } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
+import { PubSub } from "graphql-yoga";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -13,11 +14,12 @@ const resolvers: Resolvers = {
       async (
         _,
         args: RequestRideMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<RequestRideResponse> => {
         const user: User = req.user;
         try {
           const ride = await Ride.create({ ...args, passenger: user }).save();
+          pubSub.publish("rideRequest", { NearbyRideSubscription: ride });
           return {
             ok: true,
             error: null,
