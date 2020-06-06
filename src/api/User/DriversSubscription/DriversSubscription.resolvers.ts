@@ -2,7 +2,8 @@ const resolvers = {
   Subscription: {
     DriversSubscription: {
       subscribe: (_, __, { pubSub }) => {
-        return pubSub.asyncIterator("driverUpdate");
+        //subscribe :
+        return pubSub.asyncIterator("driverUpdate"); //return asyncIterator
       },
     },
   },
