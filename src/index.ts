@@ -18,10 +18,11 @@ const appOptions: Options = {
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {
+      console.log("connectionParams : ", connectionParams);
       const token = connectionParams["X-JWT"];
       if (token) {
         const user = await decodeJWT(token);
-        console.log(user);
+        console.log("Finded User by X-JWT : ", user.fullName);
         if (user) {
           return {
             currentUser: user,
