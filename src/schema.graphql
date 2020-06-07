@@ -1,7 +1,12 @@
 type Chat {
   id: Int!
-  messages: [Message]!
-  participants: [User]!
+  messages: [Message]
+  passengerId: Int!
+  passenger: User!
+  driverId: Int
+  driver: User!
+  rideId: Int
+  ride: Ride!
   createdAt: String!
   updatedAt: String
 }
@@ -60,7 +65,6 @@ type Query {
   GetRide(rideId: Int!): GetRideResponse!
   GetMyProfile: GetMyProfileResponse!
   GetNearbyDrivers: GetNearbyDriversResponse!
-  user: User
 }
 
 type Place {
@@ -88,6 +92,7 @@ type GetRideResponse {
 
 type Subscription {
   NearbyRideSubscription: Ride
+  RideStatusSubscription: Ride
   DriversSubscription: User
 }
 
@@ -109,8 +114,12 @@ type Ride {
   price: Float!
   distance: String!
   duration: String!
+  driverId: Int
   driver: User!
+  passengerId: Int!
   passenger: User!
+  chat: Chat
+  chatId: Int
   createdAt: String!
   updatedAt: String
 }
@@ -186,13 +195,10 @@ type User {
   firstName: String!
   lastName: String!
   age: Int
-  fbId: String
   password: String
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
   profilePhoto: String
-  createdAt: String!
-  updatedAt: String
   fullName: String
   isDriving: Boolean!
   isRiding: Boolean!
@@ -200,10 +206,15 @@ type User {
   lastLng: Float
   lastLat: Float
   lastOrientation: Float
-  chat: Chat
+  fbId: String
   messages: [Message]
   ridesAsPassenger: [Ride]
   ridesAsDriver: [Ride]
+  chatsAsDriver: [Chat]
+  chatsAsPassenger: [Chat]
+  places: [Place]
+  createdAt: String!
+  updatedAt: String
 }
 
 type StartPhoneVerificationResponse {
