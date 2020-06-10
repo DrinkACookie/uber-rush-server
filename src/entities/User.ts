@@ -14,7 +14,7 @@ import {
 } from "typeorm";
 
 import Chat from "./Chat";
-import Messages from "./Messages";
+import Messages from "./Message";
 import Ride from "./Ride";
 import Verification from "./Verification";
 import Place from "./Place";

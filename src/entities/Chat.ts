@@ -11,7 +11,7 @@ import {
   OneToOne,
 } from "typeorm";
 
-import Messages from "./Messages";
+import Messages from "./Message";
 
 import User from "./User";
 import Ride from "./Ride";

@@ -3,7 +3,7 @@ import privateResolver from "../../../utils/privateResolver";
 import { GetChatQueryArgs, GetChatResponse } from "../../../types/graph";
 import User from "../../../entities/User";
 import Chat from "../../../entities/Chat";
-import Message from "../../../entities/Messages";
+import Message from "../../../entities/Message";
 const resolvers: Resolvers = {
   Query: {
     GetChat: privateResolver(
