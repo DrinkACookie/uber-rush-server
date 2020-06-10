@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  RelationId,
 } from "typeorm";
 
 import Chat from "./Chat";
@@ -18,6 +19,9 @@ class Message extends BaseEntity {
 
   @Column({ type: "text" })
   text: string;
+
+  @RelationId((message: Message) => message.chat)
+  chatId: number;
 
   @ManyToOne((type) => Chat, (chat) => chat.messages)
   chat: Chat;

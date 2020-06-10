@@ -3,6 +3,7 @@ import privateResolver from "../../../utils/privateResolver";
 import { GetChatQueryArgs, GetChatResponse } from "../../../types/graph";
 import User from "../../../entities/User";
 import Chat from "../../../entities/Chat";
+import Message from "../../../entities/Message";
 const resolvers: Resolvers = {
   Query: {
     GetChat: privateResolver(
@@ -10,9 +11,12 @@ const resolvers: Resolvers = {
         const user: User = req.user;
 
         try {
-          const chat = await Chat.findOne({
-            id: args.chatId,
-          });
+          const chat = await Chat.findOne(
+            {
+              id: args.chatId,
+            },
+            { relations: ["messages"] }
+          );
           if (chat) {
             if (chat.passengerId === user.id || chat.driverId === user.id) {
               return {

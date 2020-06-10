@@ -11,7 +11,7 @@ import {
   OneToOne,
 } from "typeorm";
 
-import Message from "./Message";
+import Messages from "./Message";
 
 import User from "./User";
 import Ride from "./Ride";
@@ -20,8 +20,8 @@ import Ride from "./Ride";
 class Chat extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @OneToMany((type) => Message, (message) => message.chat)
-  messages: Message[];
+  @OneToMany((type) => Messages, (messages) => messages.chat)
+  messages: Messages[];
 
   @RelationId((chat: Chat) => chat.ride)
   rideId: number;

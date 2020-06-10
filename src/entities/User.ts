@@ -14,7 +14,7 @@ import {
 } from "typeorm";
 
 import Chat from "./Chat";
-import Message from "./Message";
+import Messages from "./Message";
 import Ride from "./Ride";
 import Verification from "./Verification";
 import Place from "./Place";
@@ -79,8 +79,8 @@ class User extends BaseEntity {
   @OneToMany((type) => Chat, (chat) => chat.driver)
   chatsAsDriver: Chat[];
 
-  @OneToMany((type) => Message, (message) => message.user)
-  messages: Message[];
+  @OneToMany((type) => Messages, (messages) => messages.user)
+  messages: Messages[];
 
   @OneToMany((type) => Ride, (ride) => ride.passenger)
   ridesAsPassenger: Ride[];
