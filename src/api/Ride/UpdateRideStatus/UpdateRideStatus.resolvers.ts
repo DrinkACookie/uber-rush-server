@@ -6,6 +6,7 @@ import {
 import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
 import Ride from "../../../entities/Ride";
+import Chat from "../../../entities/Chat";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -13,22 +14,31 @@ const resolvers: Resolvers = {
       async (
         _,
         args: UpdateRideStatusMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<UpdateRideStatusResponse> => {
         const user: User = req.user;
         if (user.isDriving) {
           try {
             let ride: Ride | undefined;
             if (args.status === "ACCEPTED") {
-              ride = await Ride.findOne({
-                id: args.rideId,
-                status: "REQUESTING",
-              });
+              ride = await Ride.findOne(
+                {
+                  id: args.rideId,
+                  status: "REQUESTING",
+                },
+                { relations: ["pasenger"] }
+              );
               if (ride) {
                 ride.driver = user;
                 user.isTaken = true;
                 user.save();
-                //to do ride.save();
+                //to do ride.save();    ????
+                const chat = await Chat.create({
+                  driver: user,
+                  passenger: ride.passenger,
+                }).save();
+                ride.chat = chat;
+                ride.save();
               }
             } else {
               ride = await Ride.findOne({
@@ -39,6 +49,7 @@ const resolvers: Resolvers = {
             if (ride) {
               ride.status = args.status;
               ride.save();
+              pubSub.publish("rideUpdate", { RideStatusSubscription: ride });
               return {
                 ok: true,
                 error: null,
