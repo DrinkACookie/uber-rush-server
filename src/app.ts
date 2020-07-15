@@ -32,7 +32,11 @@ class App {
     this.app.express.use(cors());
     this.app.express.use(logger("dev"));
     this.app.express.use(helmet());
-    this.app.express.use(this.jwt);
+    try {
+      this.app.express.use(this.jwt);
+    } catch (error) {
+      console.log("error in jwt middleware: ", error);
+    }
   };
   private jwt = async (req, res, next: NextFunction): Promise<void> => {
     const token = req.get("X-JWT");

@@ -105,7 +105,6 @@ class User extends BaseEntity {
 
   //save나 update 하기 전 실행되는 함수들.
   @BeforeInsert()
-  @BeforeUpdate()
   async savePassword(): Promise<void> {
     if (this.password) {
       const hashedPassword = await this.hashPassword(this.password);
