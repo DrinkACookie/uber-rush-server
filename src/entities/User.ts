@@ -9,7 +9,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
+  ManyToOne,  
   OneToMany,
 } from "typeorm";
 
