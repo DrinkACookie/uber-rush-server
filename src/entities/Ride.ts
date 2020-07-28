@@ -60,14 +60,14 @@ class Ride extends BaseEntity {
   @JoinColumn()
   passenger: User;
 
-  @Column({ type: "text" })
+  @RelationId((ride: Ride) => ride.driver)
   driverId: number;
 
   @ManyToOne((type) => User, (user) => user.ridesAsDriver, { nullable: true })
   @JoinColumn()
   driver: User;
 
-  @Column({ type: "text" })
+  @RelationId((ride: Ride) => ride.chat)
   chatId: number;
 
   @OneToOne((type) => Chat, (chat) => chat.ride, { nullable: true })
