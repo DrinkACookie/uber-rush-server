@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
       ): Promise<SendChatMessageResponse> => {
         const user: User = req.user;
         try {
-          const chat = await Chat.findOne({ id: args.chatId });
+          const chat = await Chat.findOne({ id: args.chatId }, {});
           if (chat) {
             if (chat.passengerId === user.id || chat.driverId === user.id) {
               const message = await Message.create({
@@ -26,6 +26,7 @@ const resolvers: Resolvers = {
                 chat,
                 user,
               }).save();
+              console.log("DDDDDDD", message);
               pubSub.publish("newChatMessage", {
                 MessageSubscription: message,
               });
