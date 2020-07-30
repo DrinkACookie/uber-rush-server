@@ -26,25 +26,31 @@ const resolvers: Resolvers = {
                   id: args.rideId,
                   status: "REQUESTING",
                 },
-                { relations: ["passenger"] }
+                { relations: ["passenger", "driver"] }
               );
+              console.log("This is : ", ride);
               if (ride) {
                 ride.driver = user;
                 user.isTaken = true;
                 user.save();
-                //to do ride.save();    ????
+                ride.save(); //????
                 const chat = await Chat.create({
                   driver: user,
                   passenger: ride.passenger,
                 }).save();
                 ride.chat = chat;
                 ride.save();
+
+                console.log("This is : ", ride);
               }
             } else {
-              ride = await Ride.findOne({
-                id: args.rideId,
-                driver: user,
-              });
+              ride = await Ride.findOne(
+                {
+                  id: args.rideId,
+                  driver: user,
+                },
+                { relations: ["passenger", "driver"] }
+              );
             }
             if (ride) {
               ride.status = args.status;

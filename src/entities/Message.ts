@@ -26,6 +26,9 @@ class Message extends BaseEntity {
   @ManyToOne((type) => Chat, (chat) => chat.messages)
   chat: Chat;
 
+  @RelationId((message: Message) => message.user)
+  userId: number;
+
   @ManyToOne((type) => User, (user) => user.messages)
   user: User;
 
