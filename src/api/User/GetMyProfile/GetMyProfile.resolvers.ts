@@ -1,5 +1,4 @@
 import { Resolvers } from "../../../types/resolver";
-import User from "../../../entities/User";
 import privateResolver from "../../../utils/privateResolver";
 
 const resolvers: Resolvers = {

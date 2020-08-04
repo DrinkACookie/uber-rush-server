@@ -1,5 +1,4 @@
 import { Resolvers } from "../../../types/resolver";
-import { PhoneNumber } from "twilio/lib/interfaces";
 import {
   CompletePhoneVerificationMutationArgs,
   CompletePhoneVerificationResponse,
