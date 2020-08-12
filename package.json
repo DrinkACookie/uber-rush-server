@@ -11,8 +11,7 @@
     "prebuild": "rm -rf dist",
     "build": "tsc",
     "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api",
-    "start":"cd dist && node ."
-
+    "start": "cd dist && node ."
   },
   "repository": {
     "type": "git",

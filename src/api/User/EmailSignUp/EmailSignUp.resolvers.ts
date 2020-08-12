@@ -14,7 +14,7 @@ const resolvers: Resolvers = {
       _,
       args: EmailSignUpMutationArgs
     ): Promise<EmailSignUpResponse> => {
-      const { email } = args;
+      const { email,lastName,firstName,password,phoneNumber,age, } = args;
       try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -29,7 +29,7 @@ const resolvers: Resolvers = {
             verified: true,
           });
           if (phoneVerification) {
-            const newUser = await User.create({ ...args }).save();
+            const newUser = await User.create({email,lastName,firstName,password,phoneNumber,age,  }).save();
             if (newUser.email) {
               const emailVerification = await Verification.create({
                 payload: newUser.email,

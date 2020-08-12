@@ -1,12 +1,9 @@
 import { Resolvers } from "../../../types/resolver";
-import { PhoneNumber } from "twilio/lib/interfaces";
 import {
   PhoneVerificationOnSignInMutationArgs,
   PhoneVerificationOnSignInResponse,
 } from "../../../types/graph";
 import Verification from "../../../entities/Verification";
-import User from "../../../entities/User";
-import createJWT from "../../../utils/createJWT";
 const resolvers: Resolvers = {
   Mutation: {
     PhoneVerificationOnSignIn: async (
@@ -36,8 +33,12 @@ const resolvers: Resolvers = {
       } catch (error) {
         return {
           ok: false,
-          error: error.message,
+          error: error.message||null,
         };
+      }
+      return{
+        ok:false,
+        error: "비 정상적인 수행"
       }
     },
   },
