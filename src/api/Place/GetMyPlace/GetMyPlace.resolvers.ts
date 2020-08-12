@@ -2,6 +2,7 @@ import User from "../../../entities/User";
 import { GetMyPlacesResponse } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
+import Place from "../../../entities/Place";
 
 const resolvers: Resolvers = {
   Query: {
@@ -12,12 +13,25 @@ const resolvers: Resolvers = {
             { id: req.user.id },
             { relations: ["places"] }
           );
+
           if (user) {
-            return {
-              ok: true,
-              places: user.places,
-              error: null,
-            };
+            const sortedPlaces = await Place.find({
+              where: { userId: req.user.id },
+              order: { isFav: "DESC" },
+            });
+            if (sortedPlaces) {
+              return {
+                ok: true,
+                places: sortedPlaces,
+                error: null,
+              };
+            } else {
+              return {
+                ok: true,
+                places: null,
+                error: null,
+              };
+            }
           } else {
             return {
               ok: false,

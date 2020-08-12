@@ -1,0 +1,10 @@
+type PhoneVerificationOnSignInResponse {
+  ok: Boolean!
+  error: String
+}
+type Mutation {
+  PhoneVerificationOnSignIn(
+    phoneNumber: String!
+    key: String!
+  ): PhoneVerificationOnSignInResponse!
+}
