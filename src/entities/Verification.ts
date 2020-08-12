@@ -4,12 +4,11 @@ import {
   CreateDateColumn,
   Column,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { verificationTarget } from "../types/types";
-import User from "./User";
+
 @Entity()
 class Verification extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;

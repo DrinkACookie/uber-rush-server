@@ -65,7 +65,7 @@ const resolvers: Resolvers = {
               return {
                 ok: false,
                 error: "Cant update ride",
-                rideId: ride.id,
+                rideId: null
               };
             }
           } catch (error) {

@@ -3,20 +3,17 @@ import { IsEmail } from "class-validator";
 import {
   BaseEntity,
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
   OneToMany,
 } from "typeorm";
 
 import Chat from "./Chat";
 import Messages from "./Message";
 import Ride from "./Ride";
-import Verification from "./Verification";
 import Place from "./Place";
 
 const BCRYPT_ROUNDS = 10; //암호화를 10번 하겠다,
@@ -50,7 +47,7 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: boolean;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   profilePhoto: string;
   @Column({ type: "boolean", default: false })
   isDriving: boolean;

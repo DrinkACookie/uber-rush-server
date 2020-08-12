@@ -22,7 +22,7 @@ const appOptions: Options = {
       const token = connectionParams["X-JWT"];
       if (token) {
         const user = await decodeJWT(token);
-        console.log("Finded User by X-JWT : ", user.fullName);
+        console.log("Finded User by X-JWT : ", user!.fullName);
         if (user) {
           return {
             currentUser: user,

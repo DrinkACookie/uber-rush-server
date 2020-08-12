@@ -6,7 +6,6 @@ import {
 } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
-import { PubSub } from "graphql-yoga";
 
 const resolvers: Resolvers = {
   Mutation: {
