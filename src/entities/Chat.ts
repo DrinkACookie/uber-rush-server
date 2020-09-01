@@ -34,7 +34,7 @@ class Chat extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.chatsAsPassenger)
   passenger: User;
 
-  @RelationId((chat: Chat) => chat.driver)
+  @RelationId((chat: Chat) => chat.driver,)
   driverId: number;
 
   @ManyToOne((type) => User, (user) => user.chatsAsDriver)

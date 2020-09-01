@@ -33,14 +33,19 @@ const resolvers: Resolvers = {
                 ride.driver = user;
                 user.isTaken = true;
                 user.save();
-                ride.save(); //????
+                const chat = await Chat.findOne({rideId:ride.id})
+                console.log("chat 찾아옴 : ",chat);
+                /*
                 const chat = await Chat.create({
                   driver: user,
                   passenger: ride.passenger,
                 }).save();
-                ride.chat = chat;
+                */
+               if(chat){
+                 ride.chatId = chat?.id;
+                 chat.driver=user;
+                }
                 ride.save();
-
                 console.log("This is : ", ride);
               }
             } else {
