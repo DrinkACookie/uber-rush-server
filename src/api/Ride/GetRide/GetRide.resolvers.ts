@@ -18,6 +18,7 @@ const resolvers: Resolvers = {
           );
           if (ride) {
             if (ride.passengerId === user.id || ride.driverId === user.id) {
+              console.log("ride : ",ride , "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
               return {
                 ok: true,
                 error: null,

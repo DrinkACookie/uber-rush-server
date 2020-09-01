@@ -6,6 +6,7 @@ import {
 } from "../../../types/graph";
 import { Resolvers } from "../../../types/resolver";
 import privateResolver from "../../../utils/privateResolver";
+import Chat from "src/entities/Chat";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -27,6 +28,12 @@ const resolvers: Resolvers = {
             pubSub.publish("rideRequest", { NearbyRideSubscription: ride });
             user.isRiding = true;
             user.save();
+            const chat = await Chat.create({
+              driver: ride.passenger,
+              passenger: ride.passenger,
+            }).save();
+            ride.chat = chat;
+            ride.save();
             return {
               ok: true,
               error: null,
