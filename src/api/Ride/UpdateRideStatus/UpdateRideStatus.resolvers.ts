@@ -17,9 +17,13 @@ const resolvers: Resolvers = {
         { req, pubSub }
       ): Promise<UpdateRideStatusResponse> => {
         const user: User = req.user;
+        console.log("user : ",user)
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         if (user.isDriving) {
           try {
             let ride: Ride | undefined;
+            console.log("args.status : ",args)
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
             if (args.status === "ACCEPTED") {
               ride = await Ride.findOne(
                 {
@@ -44,6 +48,8 @@ const resolvers: Resolvers = {
                if(chat){
                  ride.chatId = chat?.id;
                  chat.driver=user;
+                 chat.save();
+                 console.log("chat 변경됨 : ",chat);
                 }
                 ride.save();
                 console.log("This is : ", ride);
