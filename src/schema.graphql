@@ -52,7 +52,7 @@ type Chat {
   passengerId: Int!
   passenger: User!
   driverId: Int
-  driver: User!
+  driver: User
   rideId: Int
   ride: Ride!
   createdAt: String!
